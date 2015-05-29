@@ -86,6 +86,24 @@ namespace pocketsphinxjs {
     return SUCCESS;
   }
 
+  ReturnType Recognizer::addKeywordFile(Integers& id, const std::string& keyfile) {
+      if (decoder == NULL) return BAD_STATE;
+      std::ostringstream search_name;
+      search_name << grammar_index;
+      grammar_names.push_back(search_name.str());
+      if(ps_set_kws(decoder, grammar_names.back().c_str(), keyfile.c_str())) {
+        return RUNTIME_ERROR;
+      }
+      if (id.size() == 0) id.push_back(grammar_index);
+      else id.at(0) = grammar_index;
+      grammar_index++;
+      // We switch to the newly added search right away
+      if (ps_set_search(decoder, grammar_names.back().c_str())) {
+        return RUNTIME_ERROR;
+      }
+      return SUCCESS;
+    }
+
 
   ReturnType Recognizer::switchGrammar(int id) {
     return switchSearch(id);
