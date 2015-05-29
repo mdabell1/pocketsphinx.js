@@ -186,6 +186,7 @@ EMSCRIPTEN_BINDINGS(recognizer) {
     .function("addWords", &ps::Recognizer::addWords)
     .function("addGrammar", &ps::Recognizer::addGrammar)
     .function("addKeyword", &ps::Recognizer::addKeyword)
+    .function("addKeywordFile", &ps::Recognizer::addKeywordFile)
     .function("switchGrammar", &ps::Recognizer::switchGrammar)
     .function("switchSearch", &ps::Recognizer::switchSearch)
     .function("getHyp", &ps::Recognizer::getHyp)
