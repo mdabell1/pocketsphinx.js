@@ -67,6 +67,7 @@ namespace pocketsphinxjs {
     ReturnType addWords(const std::vector<Word>&);
     ReturnType addGrammar(Integers&, const Grammar&);
     ReturnType addKeyword(Integers&, const std::string&);
+    ReturnType addKeywordFile(Integers&, const std::string&);
     // Kept for backward compatibility, use switchSearch
     // instead
     ReturnType switchGrammar(int);

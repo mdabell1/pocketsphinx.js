@@ -1,6 +1,8 @@
 #include "psRecognizer.h"
 #include "pocketsphinx.h"
 #include "pocketsphinxjs-config.h"
+#include <iostream>
+#include <fstream>
 
 #define MAX_NUM_GRAMMARS 1000
 
@@ -87,11 +89,22 @@ namespace pocketsphinxjs {
   }
 
   ReturnType Recognizer::addKeywordFile(Integers& id, const std::string& keyfile) {
+      
       if (decoder == NULL) return BAD_STATE;
+
+      std::ostringstream file_name_stream;
+      file_name_stream << grammar_index << ".gram";
+      std::string file_name = file_name_stream.str();
+
+      std::ofstream file_;
+      file_.open(file_name);
+      file_ << keyfile;
+      file_.close();
+
       std::ostringstream search_name;
       search_name << grammar_index;
       grammar_names.push_back(search_name.str());
-      if(ps_set_kws(decoder, grammar_names.back().c_str(), keyfile.c_str())) {
+      if(ps_set_kws(decoder, grammar_names.back().c_str(), file_name.c_str())) {
         return RUNTIME_ERROR;
       }
       if (id.size() == 0) id.push_back(grammar_index);
